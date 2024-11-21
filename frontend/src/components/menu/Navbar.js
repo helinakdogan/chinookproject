@@ -58,7 +58,7 @@ const Navbar = ({ currentSelect, setCurrentSelect }) => {
           id="mobile-menu"
         >
           <ul className="flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0">
-            {["Albums", "Tracks", "Add Album", "Add Track", "Track Details"].map(
+            {["Albums", "Tracks",].map(
               (item) => (
                 <li key={item}>
                   <button
