@@ -1,21 +1,21 @@
 const express = require('express');
-const cors = require('cors'); // CORS'u içe aktar
+const cors = require('cors');
 const sequelize = require('./config/database');
 const albumRoutes = require('./routes/albumRoutes');
 const artistRoutes = require('./routes/artistRoutes');
+const trackRoutes = require('./routes/trackRoutes'); // Track routes'u ekleyin
 
 const app = express();
 
-// CORS
 app.use(cors());
-
 app.use(express.json());
 
 // Routes
 app.use('/albums', albumRoutes);
 app.use('/artists', artistRoutes);
+app.use('/tracks', trackRoutes); 
 
-// run server
+// Sunucuyu başlatma
 (async () => {
   try {
     await sequelize.authenticate();
