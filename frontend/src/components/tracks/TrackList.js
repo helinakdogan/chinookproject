@@ -57,7 +57,7 @@ const TrackList = () => {
 
   return (
     <div className="p-4 ">
-      <h1 className="text-3xl font-bold text-center mb-6">Track List</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Tracks</h1>
 
       {/* Filters */}
       <div className="bg-gray-100 p-4 rounded-md shadow-md mb-6 w-9/12 mx-auto">
@@ -117,11 +117,11 @@ const TrackList = () => {
             onClick={applyFilters}
             className="bg-indigo-600 text-white font-bold py-2 px-6 rounded-md hover:bg-indigo-700 transition"
           >
-            Filter Tracks
+            Filter 
           </button>
         </div>
       </div>
-      <h2 className="text-lg font-semibold mb-4 text-center">Tracks</h2>
+
       {/* Track List */}
       <div className="space-y-4">
         {filteredTracks.map((track) => (

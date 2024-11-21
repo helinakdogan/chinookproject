@@ -5,7 +5,7 @@ import AddAlbum from '../components/albums/AddAlbum';
 const AlbumsPage = () => {
   return (
     <div>
-      <h1>Albums</h1>
+      
       <AlbumList />
       <h1>Add new album</h1>
       <AddAlbum />
