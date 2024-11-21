@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Artist = require('./Artist'); // Artist modelini import et
+const Artist = require('./Artist');
 
 const Album = sequelize.define(
   'Album',
@@ -11,7 +11,7 @@ const Album = sequelize.define(
       autoIncrement: true,
     },
     title: {
-      type: DataTypes.STRING(160), // VARCHAR(160)
+      type: DataTypes.STRING(160), 
       allowNull: false,
     },
     artist_id: {
@@ -20,9 +20,9 @@ const Album = sequelize.define(
     },
   },
   {
-    tableName: 'album', // Tablo adını küçük harfli olarak ayarlayın
-    timestamps: false, // createdAt ve updatedAt sütunlarını devre dışı bırakır
-    freezeTableName: true, // Sequelize'ın tablo adını değiştirmesini engeller
+    tableName: 'album', 
+    timestamps: false, 
+    freezeTableName: true, 
   }
 );
 

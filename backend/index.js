@@ -6,16 +6,16 @@ const trackRoutes = require('./routes/trackRoutes');
 
 const app = express();
 
-// CORS'u etkinleştir
+// CORS
 app.use(cors());
 
 app.use(express.json());
 
-// Rotalar
+// Routes
 app.use('/albums', albumRoutes);
 app.use('/tracks', trackRoutes);
 
-// Veritabanını senkronize et ve sunucuyu başlat
+// run server
 (async () => {
   try {
     await sequelize.authenticate();
