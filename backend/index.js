@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors'); // CORS'u içe aktar
 const sequelize = require('./config/database');
 const albumRoutes = require('./routes/albumRoutes');
-const trackRoutes = require('./routes/trackRoutes');
+const artistRoutes = require('./routes/artistRoutes');
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Routes
 app.use('/albums', albumRoutes);
-app.use('/tracks', trackRoutes);
+app.use('/artists', artistRoutes);
 
 // run server
 (async () => {
