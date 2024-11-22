@@ -19,16 +19,42 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Yeni bir parça ekleme
-router.post('/', async (req, res) => {
+router.get('/:trackId', async (req, res) => {
+  const { trackId } = req.params;
+
   try {
-    const { name, album_id, genre_id, composer, milliseconds, unit_price } = req.body;
-    const track = await Track.create({ name, album_id, genre_id, composer, milliseconds, unit_price });
+    console.log(`Fetching track with ID: ${trackId}`);
+
+    const track = await Track.findByPk(trackId, {
+      include: {
+        model: Album,
+        attributes: ['title'], // Albüm başlığını al
+      },
+      attributes: [
+        'track_id',
+        'name',
+        'album_id',
+        'composer',
+        'milliseconds',
+        'unit_price',
+      ],
+    });
+
+    if (!track) {
+      console.log(`Track with ID ${trackId} not found.`);
+      return res.status(404).json({ message: 'Track not found' });
+    }
+
+    console.log(`Track data: ${JSON.stringify(track, null, 2)}`);
     res.json(track);
   } catch (error) {
-    console.error('Hata:', error.message);
-    res.status(500).json({ error: 'Error creating track' });
+    console.error('Error fetching track details:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
+
+
+
 module.exports = router;
+

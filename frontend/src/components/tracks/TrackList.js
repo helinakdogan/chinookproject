@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const TrackList = () => {
+const TrackList = ({ viewTrackDetails }) => {
   const [tracks, setTracks] = useState([]);
   const [filteredTracks, setFilteredTracks] = useState([]);
   const [filters, setFilters] = useState({
@@ -61,7 +61,6 @@ const TrackList = () => {
 
       {/* Filters */}
       <div className="bg-gray-100 p-4 rounded-md shadow-md mb-6 w-9/12 mx-auto">
-        
         <div className="flex flex-wrap justify-center items-center gap-4">
           {[
             {
@@ -117,7 +116,7 @@ const TrackList = () => {
             onClick={applyFilters}
             className="bg-indigo-600 text-white font-bold py-2 px-6 rounded-md hover:bg-indigo-700 transition"
           >
-            Filter 
+            Filter
           </button>
         </div>
       </div>
@@ -130,7 +129,7 @@ const TrackList = () => {
             className="flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow"
           >
             <div className="flex-1 ">
-              <h2 className="text-xl font-semibold  text-gray-800 mb-2">
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">
                 {track.name}
               </h2>
               <p className="text-gray-600">
@@ -143,6 +142,14 @@ const TrackList = () => {
                 <strong>Price:</strong> $
                 {parseFloat(track.unit_price).toFixed(2)}
               </p>
+
+              {/* Detayları Gör Butonu */}
+              <button
+                onClick={() => viewTrackDetails(track.track_id)}
+                className="mt-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
+              >
+                Detayları Gör
+              </button>
             </div>
           </div>
         ))}
