@@ -11,7 +11,7 @@ const Album = sequelize.define(
       autoIncrement: true,
     },
     title: {
-      type: DataTypes.STRING(160), 
+      type: DataTypes.STRING(160),
       allowNull: false,
     },
     artist_id: {
@@ -20,16 +20,13 @@ const Album = sequelize.define(
     },
   },
   {
-    tableName: 'album', 
-    timestamps: false, 
-    freezeTableName: true, 
+    tableName: 'album',
+    timestamps: false,
+    freezeTableName: true,
   }
 );
 
-// İlişki tanımlamaları
 Album.belongsTo(Artist, { foreignKey: 'artist_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Artist.hasMany(Album, { foreignKey: 'artist_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
 module.exports = Album;
-
-

@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Album = require('./Album');
+const Album = require('./Album'); // Album modelini import edin
 
 const Track = sequelize.define(
   'Track',

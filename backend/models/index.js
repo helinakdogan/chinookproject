@@ -1,9 +1,9 @@
-const sequelize = require('../config/database'); 
-const Album = require('./Album'); 
-const Artist = require('./Artist'); 
-const Track = require('./Track'); 
+const sequelize = require('../config/database');
+const Album = require('./Album');
+const Artist = require('./Artist');
+const Track = require('./Track');
 
-// Modeller arasında ilişki kurma
+// İlişki tanımlamaları
 Artist.hasMany(Album, { foreignKey: 'artist_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Album.belongsTo(Artist, { foreignKey: 'artist_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
@@ -11,8 +11,8 @@ Album.hasMany(Track, { foreignKey: 'album_id', onDelete: 'SET NULL', onUpdate: '
 Track.belongsTo(Album, { foreignKey: 'album_id', onDelete: 'SET NULL', onUpdate: 'CASCADE' });
 
 module.exports = {
-  sequelize, 
-  Album, 
+  sequelize,
+  Album,
   Artist,
-  Track, 
+  Track,
 };

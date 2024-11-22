@@ -10,14 +10,14 @@ const Artist = sequelize.define(
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING(120), 
-      allowNull: true, 
+      type: DataTypes.STRING(120),
+      allowNull: true, // Sanatçı ismi boş olabilir
     },
   },
   {
-    tableName: 'artist', 
-    timestamps: false, 
-    freezeTableName: true, 
+    tableName: 'artist',
+    timestamps: false,
+    freezeTableName: true,
   }
 );
 
