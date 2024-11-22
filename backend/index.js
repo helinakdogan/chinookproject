@@ -5,6 +5,7 @@ const albumRoutes = require('./routes/albumRoutes');
 const artistRoutes = require('./routes/artistRoutes');
 const trackRoutes = require('./routes/trackRoutes'); // Track routes'u ekleyin
 const genreRoutes = require('./routes/genreRoutes');
+const mediaTypeRoutes = require('./routes/mediaTypeRoutes'); // MediaType routes'u ekleyin
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use('/albums', albumRoutes);
 app.use('/artists', artistRoutes);
 app.use('/tracks', trackRoutes); 
 app.use('/genres', genreRoutes); 
+app.use('/media-types', mediaTypeRoutes);
 
 // Sunucuyu başlatma
 (async () => {

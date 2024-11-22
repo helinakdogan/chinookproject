@@ -20,9 +20,10 @@ const TracksPage = () => {
         />
       ) : (
         <>
+        <AddTrack />
           <TrackList viewTrackDetails={viewTrackDetails} />
-          <h1>Add new Track</h1>
-          <AddTrack />
+          
+          
         </>
       )}
     </div>

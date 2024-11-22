@@ -9,9 +9,10 @@ router.get('/', async (req, res) => {
     const albums = await Album.findAll({
       include: {
         model: Artist,
-        attributes: ['name'], // Sanatçının sadece adını alın
+        attributes: ['name'], 
       },
-      attributes: ['album_id', 'title', 'artist_id'], // Albümde sadece gerekli sütunları al
+      attributes: ['album_id', 'title', 'artist_id'], 
+      order: [['title', 'ASC']],
       limit,
     });
     res.json(albums); // Albümleri JSON olarak döndür

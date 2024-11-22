@@ -3,8 +3,11 @@ const Album = require('./Album');
 const Artist = require('./Artist');
 const Track = require('./Track');
 const Genre = require('./Genre');
+const MediaType = require('./MediaType');
 
-// İlişki tanımlamaları
+Track.belongsTo(MediaType, { foreignKey: 'media_type_id', onDelete: 'NO ACTION', onUpdate: 'CASCADE' });
+MediaType.hasMany(Track, { foreignKey: 'media_type_id', onDelete: 'NO ACTION', onUpdate: 'CASCADE' });
+
 Artist.hasMany(Album, { foreignKey: 'artist_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Album.belongsTo(Artist, { foreignKey: 'artist_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 
@@ -19,5 +22,6 @@ module.exports = {
   Album,
   Artist,
   Track,
-  Genre
+  Genre,
+  MediaType,
 };
