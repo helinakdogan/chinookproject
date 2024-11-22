@@ -50,4 +50,44 @@ router.get('/:albumId', async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  const { title, artist } = req.body;
+
+  try {
+      // Sanatçıyı kontrol et veya ekle
+      let artistInstance = await Artist.findOne({ where: { name: artist } });
+
+      if (!artistInstance) {
+          const maxArtistId = await Artist.max("artist_id") || 0; // Mevcut en yüksek artist_id'yi al
+          const newArtistId = maxArtistId + 1; // Yeni artist_id oluştur
+          artistInstance = await Artist.create({
+              artist_id: newArtistId,
+              name: artist,
+          });
+      }
+
+      // Yeni albüm ID'si oluştur
+      const maxAlbumId = await Album.max("album_id") || 0; // Mevcut en yüksek album_id'yi al
+      const newAlbumId = maxAlbumId + 1; // Yeni album_id oluştur
+
+      // Albümü ekle
+      const album = await Album.create({
+          album_id: newAlbumId, // Manuel olarak ID atıyoruz
+          title,
+          artist_id: artistInstance.artist_id,
+      });
+
+      res.status(201).json({ message: "Album added successfully!", album });
+  } catch (error) {
+      console.error("Error adding album:", error);
+      res.status(500).json({ error: "Error adding album." });
+  }
+});
+
+
+
+
+
+
+
 module.exports = router;

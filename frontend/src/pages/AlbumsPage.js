@@ -12,9 +12,10 @@ const AlbumsPage = () => {
         <AlbumDetail albumId={selectedAlbumId} goBack={() => setSelectedAlbumId(null)} />
       ) : (
         <>
+        <AddAlbum />
           <AlbumList selectAlbum={(id) => setSelectedAlbumId(id)} />
-          <h1>Add new album</h1>
-          <AddAlbum />
+         
+          
         </>
       )}
     </div>
