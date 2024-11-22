@@ -5,12 +5,14 @@ const router = express.Router();
 // Tüm albümleri listeleme
 router.get('/', async (req, res) => {
   try {
+    const limit = parseInt(req.query.limit, 10) || null;
     const albums = await Album.findAll({
       include: {
         model: Artist,
         attributes: ['name'], // Sanatçının sadece adını alın
       },
       attributes: ['album_id', 'title', 'artist_id'], // Albümde sadece gerekli sütunları al
+      limit,
     });
     res.json(albums); // Albümleri JSON olarak döndür
   } catch (error) {

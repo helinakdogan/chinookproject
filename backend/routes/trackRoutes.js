@@ -1,16 +1,24 @@
 const express = require('express');
-const { Track, Album } = require('../models'); // Modelleri import et
+const { Track, Album, Genre } = require('../models'); // Modelleri import et
 const router = express.Router();
 
 // Tüm parçaları listeleme
 router.get('/', async (req, res) => {
   try {
+    const limit = parseInt(req.query.limit, 10) || null;
     const tracks = await Track.findAll({
-      include: {
-        model: Album,
-        attributes: ['title'], // Albüm başlığını al
-      },
-      attributes: ['track_id', 'name', 'album_id', 'genre_id', 'composer', 'milliseconds', 'unit_price'], // Gerekli sütunları seç
+      include: [
+        {
+          model: Album,
+          attributes: ['title'], // Albüm başlığını al
+        },
+        {
+          model: Genre,
+          attributes: ['genre_id', 'name'], // Genre ismini al
+        },
+      ],
+      attributes: ['track_id', 'name','genre_id', 'milliseconds', 'unit_price'],
+      limit,
     });
     res.json(tracks);
   } catch (error) {
@@ -18,6 +26,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Error fetching tracks' });
   }
 });
+
 
 router.get('/:trackId', async (req, res) => {
   const { trackId } = req.params;
@@ -34,8 +43,10 @@ router.get('/:trackId', async (req, res) => {
         'track_id',
         'name',
         'album_id',
+        'genre_id',
         'composer',
         'milliseconds',
+        'bytes',
         'unit_price',
       ],
     });

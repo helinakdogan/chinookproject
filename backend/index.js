@@ -4,6 +4,7 @@ const sequelize = require('./config/database');
 const albumRoutes = require('./routes/albumRoutes');
 const artistRoutes = require('./routes/artistRoutes');
 const trackRoutes = require('./routes/trackRoutes'); // Track routes'u ekleyin
+const genreRoutes = require('./routes/genreRoutes');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use('/albums', albumRoutes);
 app.use('/artists', artistRoutes);
 app.use('/tracks', trackRoutes); 
+app.use('/genres', genreRoutes); 
 
 // Sunucuyu başlatma
 (async () => {
