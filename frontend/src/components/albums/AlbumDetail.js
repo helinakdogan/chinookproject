@@ -33,16 +33,11 @@ const AlbumDetail = ({ albumId, goBack }) => {
 
       {/* Albüm Detayları */}
       <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-        <h2 className="text-2xl font-bold text-gray-700 mb-4">Album Details</h2>
+       
         <p className="text-lg text-gray-600 mb-2">
           <strong>Artist:</strong> {albumDetails.Artist?.name || "Unknown Artist"}
         </p>
-        <p className="text-lg text-gray-600 mb-2">
-          <strong>Album ID:</strong> {albumDetails.album_id}
-        </p>
-        <p className="text-lg text-gray-600">
-          <strong>Artist ID:</strong> {albumDetails.artist_id}
-        </p>
+        
       </div>
 
       {/* Parça Listesi */}

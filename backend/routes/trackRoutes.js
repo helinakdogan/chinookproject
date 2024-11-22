@@ -38,13 +38,21 @@ router.get("/:trackId", async (req, res) => {
   const { trackId } = req.params;
 
   try {
-    console.log(`Fetching track with ID: ${trackId}`);
-
     const track = await Track.findByPk(trackId, {
-      include: {
-        model: Album,
-        attributes: ["title"], // Albüm başlığını al
-      },
+      include: [
+        {
+          model: Album,
+          attributes: ["title"],
+        },
+        {
+          model: Genre,
+          attributes: ["name"], // Genre ismini al
+        },
+        {
+          model: MediaType,
+          attributes: ["name"], // MediaType ismini al
+        },
+      ],
       attributes: [
         "track_id",
         "name",
@@ -58,17 +66,16 @@ router.get("/:trackId", async (req, res) => {
     });
 
     if (!track) {
-      console.log(`Track with ID ${trackId} not found.`);
       return res.status(404).json({ message: "Track not found" });
     }
 
-    console.log(`Track data: ${JSON.stringify(track, null, 2)}`);
     res.json(track);
   } catch (error) {
     console.error("Error fetching track details:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 // Yeni parça ekle
 // Yeni parça ekle
