@@ -3,10 +3,13 @@ const { Track, Album, Genre, MediaType } = require("../models"); // Modelleri im
 const router = express.Router();
 
 // Tüm parçaları listeleme
+// Tüm parçaları listeleme
 router.get("/", async (req, res) => {
   try {
     const limit = parseInt(req.query.limit, 10) || null; // Limit parametresi
-    const tracks = await Track.findAll({
+    const offset = parseInt(req.query.offset, 10) || 0; // Offset parametresi
+
+    const { count: totalTracks, rows: tracks } = await Track.findAndCountAll({
       include: [
         {
           model: Album,
@@ -25,13 +28,17 @@ router.get("/", async (req, res) => {
         "unit_price",
       ],
       limit,
+      offset,
     });
-    res.json(tracks);
+
+    res.json({ tracks, totalTracks });
   } catch (error) {
     console.error("Hata:", error.message);
     res.status(500).json({ error: "Error fetching tracks" });
   }
 });
+
+
 
 // ID'ye göre bir parça getir
 router.get("/:trackId", async (req, res) => {
