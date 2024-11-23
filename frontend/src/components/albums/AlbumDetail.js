@@ -12,54 +12,61 @@ const AlbumDetail = ({ albumId, goBack }) => {
 
   if (!albumDetails) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-gray-500 text-xl">Loading album details...</p>
+      <div className="flex justify-center items-center h-screen text-white">
+        <p className="text-xl">Loading album details...</p>
       </div>
     );
   }
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Albüm Başlığı ve Geri Dön Butonu */}
-      <div className="mb-8 flex justify-between items-center">
-        <h1 className="text-4xl font-bold text-gray-800">{albumDetails.title}</h1>
+    <div className="min-h-screen p-6 text-white">
+      {/* Geri Dön Butonu */}
+      <div className="flex justify-start mb-6">
         <button
           onClick={goBack}
-          className="px-6 py-2 text-sm font-medium text-white bg-gray-500 rounded-md hover:bg-gray-600 transition focus:outline-none"
+          className="px-6 py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white font-medium transition-all"
         >
-          Geri Dön
+           Go Back to Albums
         </button>
       </div>
 
+      {/* Albüm Başlığı */}
+      <div className="mb-12 flex flex-col items-center">
+        <h1 className="text-4xl font-bold tracking-wide  text-center">{albumDetails.title}</h1>
+      </div>
+
       {/* Albüm Detayları */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-       
-        <p className="text-lg text-gray-600 mb-2">
+      <div className="bg-gray-800 bg-opacity-40 rounded-lg shadow-lg p-6 mb-12 backdrop-blur-lg">
+        <p className="text-lg text-center">
           <strong>Artist:</strong> {albumDetails.Artist?.name || "Unknown Artist"}
         </p>
-        
       </div>
 
       {/* Parça Listesi */}
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-700 mb-4">Tracks</h2>
+      <div className="bg-gray-800 bg-opacity-40 rounded-lg shadow-lg p-6 backdrop-blur-lg">
+        <h2 className="text-3xl font-semibold mb-8 text-center">🎵 Tracks</h2>
         {albumDetails.Tracks?.length > 0 ? (
-          <ul className="divide-y divide-gray-200">
+          <ul className="divide-y divide-purple-800">
             {albumDetails.Tracks.map((track) => (
               <li key={track.track_id} className="py-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium text-gray-800">{track.name}</span>
-                  <span className="text-gray-600">${track.unit_price}</span>
+                <div className="grid grid-cols-3 items-center gap-4">
+                  {/* Track Adı */}
+                  <span className="text-lg font-bold text-white">{track.name}</span>
+                  {/* Süre */}
+                  <span className="text-sm text-gray-400 text-center">
+                    {Math.floor(track.milliseconds / 60000)} mins{" "}
+                    {Math.floor((track.milliseconds % 60000) / 1000)} secs
+                  </span>
+                  {/* Fiyat */}
+                  <span className="text-lg text-right text-gray-300">
+                    ${parseFloat(track.unit_price).toFixed(2)}
+                  </span>
                 </div>
-                <p className="text-sm text-gray-500">
-                  <strong>Duration:</strong> {Math.floor(track.milliseconds / 60000)} mins{" "}
-                  {Math.floor((track.milliseconds % 60000) / 1000)} secs
-                </p>
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-gray-500 text-center">No tracks available.</p>
+          <p className="text-center text-gray-400">No tracks available.</p>
         )}
       </div>
     </div>

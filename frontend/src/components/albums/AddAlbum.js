@@ -14,19 +14,17 @@ const AddAlbum = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Boş alan kontrolü
     if (!formData.title || !formData.artist) {
       setMessage("Album title and artist name are required.");
       return;
     }
 
-    // Albüm ekleme isteği
     fetch("http://localhost:5000/albums", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title: formData.title, // Albüm başlığı
-        artist: formData.artist, // Sanatçı ismi
+        title: formData.title,
+        artist: formData.artist,
       }),
     })
       .then((response) => {
@@ -46,12 +44,27 @@ const AddAlbum = () => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center">Add New Album</h2>
-      {message && <p className={`text-center mb-4 ${message.includes("Error") ? "text-red-500" : "text-green-500"}`}>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+    <div
+      className="bg-violet-900 bg-opacity-15 shadow-lg rounded-xl p-8 max-w-lg mx-auto text-white mt-6"
+      style={{
+        backdropFilter: "blur(8px)", // Blur efekti ekledik
+        boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)", // Derinlik eklendi
+      }}
+    >
+      <h2 className="text-3xl font-bold mb-6 text-center">Add New Album</h2>
+      {message && (
+        <p
+          className={`text-center mb-6 ${
+            message.includes("Error") ? "text-red-400" : "text-green-400"
+          }`}
+        >
+          {message}
+        </p>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Album Title */}
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium mb-2">
             Album Title
           </label>
           <input
@@ -60,13 +73,15 @@ const AddAlbum = () => {
             id="title"
             value={formData.title}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
             placeholder="Enter album title"
             required
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="artist" className="block text-sm font-medium text-gray-700">
+
+        {/* Artist Name */}
+        <div>
+          <label htmlFor="artist" className="block text-sm font-medium mb-2">
             Artist Name
           </label>
           <input
@@ -75,14 +90,16 @@ const AddAlbum = () => {
             id="artist"
             value={formData.artist}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-purple-400 placeholder-gray-300"
             placeholder="Enter artist name"
             required
           />
         </div>
+
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="w-full bg-purple-700 text-white py-3 rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 font-medium"
         >
           Add Album
         </button>
