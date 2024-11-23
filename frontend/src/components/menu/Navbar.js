@@ -8,7 +8,7 @@ const Navbar = ({ currentSelect, setCurrentSelect }) => {
   };
 
   return (
-    <nav className="bg-gray-800 border-b border-gray-700 px-4 sm:px-6 py-4 shadow-lg">
+    <nav className="bg-violet-500 border-b border-gray-700 px-4 sm:px-6 py-4 shadow-lg">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <a href="/" className="flex items-center">
           <span className="self-center text-3xl font-bold whitespace-nowrap text-white">

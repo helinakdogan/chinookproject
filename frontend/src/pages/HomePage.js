@@ -6,45 +6,76 @@ const HomePage = ({ setCurrentSelect }) => {
 
   // Albümleri ve şarkıları yükleme
   useEffect(() => {
-    // Albümleri yükle
     fetch("http://localhost:5000/albums")
       .then((response) => response.json())
       .then((data) => setAlbums(data.slice(0, 4))) // İlk 4 albümü göster
       .catch((error) => console.error("Error fetching albums:", error));
 
-    // Şarkıları yükle
     fetch("http://localhost:5000/tracks")
       .then((response) => response.json())
-      .then((data) => setTracks(data.slice(0, 4))) // İlk 4 şarkıyı göster
+      .then((data) => setTracks(data.slice(0, 6))) // İlk 6 şarkıyı göster
       .catch((error) => console.error("Error fetching tracks:", error));
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-4xl font-bold text-center mb-6">Welcome to Music Library</h1>
-      <p className="text-lg text-center mb-8">
-        Browse tracks and albums, or add new ones to the collection!
+    <div className="min-h-screen p-6 bg-gradient-to-b from-gray-900 via-black to-purple-900 text-white">
+      <h1 className="text-5xl font-bold text-center mb-8 tracking-wide">
+        🎵 Welcome to Music Library 🎵
+      </h1>
+      <p className="text-lg text-center mb-20">
+        Discover amazing tracks and albums, or add new ones to your collection!
       </p>
 
       {/* Albümler */}
       <div className="mb-8">
-        <h2 className="text-3xl font-semibold mb-4">Featured Albums</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <h2 className="text-3xl font-semibold mb-8 text-center">🌟 Featured Albums</h2>
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center"
+        >
           {albums.map((album) => (
             <div
               key={album.album_id}
-              className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow"
+              className="relative bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500 p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all flex flex-col items-center justify-center"
+              style={{
+                aspectRatio: "1",
+                width: "100%",
+                maxWidth: "300px",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
+              }}
             >
-              <h3 className="text-xl font-semibold text-gray-800">{album.title}</h3>
-              <p className="text-gray-600">
+              {/* İkon */}
+              <div className="absolute top-4 right-4 bg-purple-700 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl shadow-lg">
+                🎶
+              </div>
+
+              {/* Albüm Adı */}
+              <h3
+                className="text-xl font-bold text-center text-black mt-4 break-words"
+                style={{
+                  wordBreak: "break-word",
+                  whiteSpace: "normal",
+                  overflowWrap: "break-word",
+                }}
+              >
+                {album.title}
+              </h3>
+
+              {/* Artist Adı */}
+              <p
+                className="text-center text-gray-700 text-sm mt-4"
+                title={album.Artist?.name || "Unknown Artist"}
+              >
                 <strong>Artist:</strong> {album.Artist?.name || "Unknown Artist"}
               </p>
             </div>
           ))}
         </div>
+      </div>
+      <div className="text-center mt-8 mb-20">
         <button
           onClick={() => setCurrentSelect("Albums")}
-          className="mt-4 px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+          className="px-6 py-3 bg-green-600 rounded-full hover:bg-green-500 text-lg font-medium shadow-md hover:shadow-lg transition-all"
         >
           See All Albums
         </button>
@@ -52,29 +83,38 @@ const HomePage = ({ setCurrentSelect }) => {
 
       {/* Şarkılar */}
       <div>
-        <h2 className="text-3xl font-semibold mb-4">Featured Tracks</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <h2 className="text-3xl font-semibold mb-6">🎶 Featured Tracks</h2>
+        <div className="space-y-4">
           {tracks.map((track) => (
             <div
               key={track.track_id}
-              className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow"
+              className="grid grid-cols-3 items-center bg-gray-800 bg-opacity-80 rounded-xl p-4 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
             >
-              <h3 className="text-xl font-semibold text-gray-800">{track.name}</h3>
-              <p className="text-gray-600">
-                <strong>Album:</strong> {track.Album?.title || "No Album"}
-              </p>
-              <p className="text-gray-600">
-                <strong>Price:</strong> ${track.unit_price}
-              </p>
+              <div className="flex items-center">
+                <div className="flex-shrink-0 bg-purple-500 rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold text-white mr-4">
+                  🎵
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">{track.name}</h3>
+                </div>
+              </div>
+              <div className="text-gray-300 text-center">
+                {track.Album?.title || "No Album"}
+              </div>
+              <div className="text-gray-300 text-right">
+                ${parseFloat(track.unit_price).toFixed(2)}
+              </div>
             </div>
           ))}
         </div>
-        <button
-          onClick={() => setCurrentSelect("Tracks")}
-          className="mt-4 px-6 py-2 text-white bg-green-500 rounded-md hover:bg-green-600"
-        >
-          See All Tracks
-        </button>
+        <div className="text-center mt-8">
+          <button
+            onClick={() => setCurrentSelect("Tracks")}
+            className="px-6 py-3 bg-green-600 rounded-full hover:bg-green-500 text-lg font-medium shadow-md hover:shadow-lg transition-all"
+          >
+            See All Tracks
+          </button>
+        </div>
       </div>
     </div>
   );
