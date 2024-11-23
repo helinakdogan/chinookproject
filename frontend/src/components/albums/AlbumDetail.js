@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
 const AlbumDetail = ({ albumId, goBack }) => {
   const [albumDetails, setAlbumDetails] = useState(null);
@@ -26,7 +27,7 @@ const AlbumDetail = ({ albumId, goBack }) => {
           onClick={goBack}
           className="px-6 py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white font-medium transition-all"
         >
-           Go Back to Albums
+           <FaArrowLeft /> 
         </button>
       </div>
 
@@ -44,7 +45,7 @@ const AlbumDetail = ({ albumId, goBack }) => {
 
       {/* Parça Listesi */}
       <div className="bg-gray-800 bg-opacity-40 rounded-lg shadow-lg p-6 backdrop-blur-lg">
-        <h2 className="text-3xl font-semibold mb-8 text-center">🎵 Tracks</h2>
+        <h2 className="text-3xl font-semibold mb-8 text-center">⭐ Tracks</h2>
         {albumDetails.Tracks?.length > 0 ? (
           <ul className="divide-y divide-purple-800">
             {albumDetails.Tracks.map((track) => (
@@ -54,6 +55,7 @@ const AlbumDetail = ({ albumId, goBack }) => {
                   <span className="text-lg font-bold text-white">{track.name}</span>
                   {/* Süre */}
                   <span className="text-sm text-gray-400 text-center">
+                  
                     {Math.floor(track.milliseconds / 60000)} mins{" "}
                     {Math.floor((track.milliseconds % 60000) / 1000)} secs
                   </span>

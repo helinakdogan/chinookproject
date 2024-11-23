@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
 const TrackDetail = ({ trackId, goBack }) => {
   const [track, setTrack] = useState(null);
@@ -46,7 +47,7 @@ const TrackDetail = ({ trackId, goBack }) => {
           onClick={goBack}
           className="px-6 py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white font-medium transition-all"
         >
-          Go Back to Tracks
+          <FaArrowLeft />
         </button>
       </div>
 

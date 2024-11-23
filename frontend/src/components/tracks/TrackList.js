@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {
+  FaMusic,
+  FaClock,
+  FaDollarSign,
+  FaFilter,
+  FaArrowRight,
+} from "react-icons/fa";
 
 const TrackList = ({ viewTrackDetails }) => {
   const [tracks, setTracks] = useState([]);
@@ -79,15 +86,15 @@ const TrackList = ({ viewTrackDetails }) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-to-b from-gray-900 via-black to-purple-900 text-white mt-12">
-      <h1 className="text-4xl font-bold text-center mb-8">🎵 Tracks</h1>
+    <div className="min-h-screen p-6 bg-gradient-to-b from-gray-900 via-black to-purple-900 text-white mt-1">
+      <h1 className="text-4xl font-bold tracking-wide flex items-center justify-center gap-3">🌟 Tracks</h1>
 
       {isLoading ? (
-        <p className="text-center text-gray-500">Loading tracks...</p>
+        <p className="text-center text-gray-500 mt-40">Loading tracks...</p>
       ) : (
         <>
           {/* Filters */}
-          <div className="bg-gray-800 bg-opacity-40 p-4 rounded-lg shadow-lg backdrop-blur-lg mb-10">
+          <div className="bg-teal-800 bg-opacity-20 p-4 rounded-lg shadow-lg backdrop-blur-lg mb-10 mt-6">
             <div className="flex flex-wrap justify-center items-center gap-6">
               <div className="flex flex-col items-center">
                 <label className="text-sm font-medium mb-2">Genre</label>
@@ -105,10 +112,20 @@ const TrackList = ({ viewTrackDetails }) => {
                   ))}
                 </select>
               </div>
-              {[{ label: "Min Length (mm:ss):", name: "minLength", type: "text" }, 
-              { label: "Max Length (mm:ss):", name: "maxLength", type: "text" },
-              { label: "Min Price ($):", name: "minPrice", type: "number" },
-              { label: "Max Price ($):", name: "maxPrice", type: "number" }].map(({ label, name, type }) => (
+              {[
+                {
+                  label: "Min Length (mm:ss):",
+                  name: "minLength",
+                  type: "text",
+                },
+                {
+                  label: "Max Length (mm:ss):",
+                  name: "maxLength",
+                  type: "text",
+                },
+                { label: "Min Price ($):", name: "minPrice", type: "number" },
+                { label: "Max Price ($):", name: "maxPrice", type: "number" },
+              ].map(({ label, name, type }) => (
                 <div key={name} className="flex flex-col items-center">
                   <label className="text-sm font-medium mb-2">{label}</label>
                   <input
@@ -122,9 +139,9 @@ const TrackList = ({ viewTrackDetails }) => {
               ))}
               <button
                 onClick={applyFilters}
-                className="px-6 py-2 bg-teal-700 rounded-full hover:bg-teal-600 shadow-md font-medium transition-all"
+                className="px-6 py-2 bg-teal-700 rounded-full hover:bg-teal-600 shadow-md font-medium transition-all flex items-center gap-2"
               >
-                Filter
+                <FaFilter /> Filter
               </button>
             </div>
           </div>
@@ -139,7 +156,7 @@ const TrackList = ({ viewTrackDetails }) => {
                 {/* Track Icon and Name */}
                 <div className="flex items-center col-span-2 gap-4">
                   <div className="bg-purple-700 w-12 h-12 flex items-center justify-center rounded-full text-white text-xl">
-                    🎶
+                    <FaMusic />
                   </div>
                   <div>
                     <h2 className="text-xl font-bold">{track.name}</h2>
@@ -147,24 +164,28 @@ const TrackList = ({ viewTrackDetails }) => {
                 </div>
 
                 {/* Duration */}
-                <div className="text-center text-gray-400">
+                <div className="text-center text-gray-400 flex items-center gap-2 justify-center">
+                  <FaClock />
                   {convertToMinutes(track.milliseconds)}
                 </div>
 
                 {/* Price */}
-                <div className="text-right text-white font-bold">
-                  ${parseFloat(track.unit_price).toFixed(2)}
+                <div className="text-right text-white font-bold flex items-center gap-2 justify-end">
+                  <FaDollarSign />
+                  {parseFloat(track.unit_price).toFixed(2)}
                 </div>
 
                 {/* Details Button */}
                 <button
-  onClick={() => viewTrackDetails(track.track_id)}
-  className="py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white"
-  style={{ width: "100px", marginLeft: "auto" }}
->
-  Details
-</button>
-
+                  onClick={() => viewTrackDetails(track.track_id)}
+                  className="py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white flex items-center justify-center"
+                  style={{ width: "100px", marginLeft: "auto" }}
+                >
+                  Details{" "}
+                  <span className="ml-2">
+                    <FaArrowRight />
+                  </span>
+                </button>
               </div>
             ))}
           </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaHome, FaMusic, FaCompactDisc, FaPlus } from "react-icons/fa";
 
 const Navbar = ({ currentSelect, setCurrentSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,16 +9,16 @@ const Navbar = ({ currentSelect, setCurrentSelect }) => {
   };
 
   return (
-    <nav className="bg-violet-500 border-b border-gray-700 px-4 sm:px-6 py-4 shadow-lg">
+    <nav className="bg-gradient-to-r from-violet-600 via-purple-600 px-4 sm:px-6 py-4 shadow-lg">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <a href="/" className="flex items-center">
-          <span className="self-center text-3xl font-bold whitespace-nowrap text-white">
+          <span className="self-center text-3xl font-bold whitespace-nowrap text-white drop-shadow-lg">
             Music Library
           </span>
         </a>
         <button
           type="button"
-          className="inline-flex items-center p-2 text-sm text-white rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          className="inline-flex items-center p-2 text-sm text-white rounded-lg md:hidden hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-300 transition duration-300"
           aria-controls="mobile-menu"
           aria-expanded={isOpen ? "true" : "false"}
           onClick={handleMenuOpen}
@@ -58,26 +59,30 @@ const Navbar = ({ currentSelect, setCurrentSelect }) => {
           id="mobile-menu"
         >
           <ul className="flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0">
-            {["Home","Albums", "Tracks",].map(
-              (item) => (
-                <li key={item}>
-                  <button
-                    onClick={() => {
-                      setCurrentSelect(item);
-                      setIsOpen(false);
-                    }}
-                    className={`${
-                      currentSelect === item
-                        ? "text-gray-900 bg-gray-100 dark:bg-gray-700 dark:text-white rounded-md"
-                        : "text-gray-300 hover:text-white"
-                    } w-full py-2 px-4 text-center md:text-left transition-colors duration-300`}
-                    aria-current={currentSelect === item ? "page" : undefined}
-                  >
-                    {item}
-                  </button>
-                </li>
-              )
-            )}
+            {[
+              { name: "Home", icon: <FaHome /> },
+              { name: "Albums", icon: <FaCompactDisc /> },
+              { name: "Tracks", icon: <FaMusic /> },
+              { name: "Add Content", icon: <FaPlus /> },
+            ].map(({ name, icon }) => (
+              <li key={name}>
+                <button
+                  onClick={() => {
+                    setCurrentSelect(name);
+                    setIsOpen(false);
+                  }}
+                  className={`${
+                    currentSelect === name
+                      ? "text-white bg-violet-500 rounded-md shadow-md"
+                      : "text-gray-200 hover:text-white"
+                  } flex items-center gap-2 w-full py-2 px-4 text-center md:text-left transition duration-300`}
+                  aria-current={currentSelect === name ? "page" : undefined}
+                >
+                  {icon}
+                  {name}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

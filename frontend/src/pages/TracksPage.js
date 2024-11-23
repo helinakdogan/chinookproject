@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TrackDetail from "../components/tracks/TrackDetail";
 import TrackList from "../components/tracks/TrackList";
-import AddTrack from "../components/tracks/AddTrack";
+
 
 const TracksPage = () => {
   const [selectedTrackId, setSelectedTrackId] = useState(null);
@@ -20,7 +20,7 @@ const TracksPage = () => {
         />
       ) : (
         <>
-        <AddTrack />
+        
           <TrackList viewTrackDetails={viewTrackDetails} />
           
           

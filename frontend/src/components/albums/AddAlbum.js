@@ -51,7 +51,7 @@ const AddAlbum = () => {
         boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)", // Derinlik eklendi
       }}
     >
-      <h2 className="text-3xl font-bold mb-6 text-center">Add New Album</h2>
+     
       {message && (
         <p
           className={`text-center mb-6 ${
@@ -99,7 +99,7 @@ const AddAlbum = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-purple-700 text-white py-3 rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 font-medium"
+          className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 font-medium"
         >
           Add Album
         </button>

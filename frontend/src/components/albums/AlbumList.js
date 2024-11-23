@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaArrowRight, FaRecordVinyl } from "react-icons/fa";
 
 const AlbumList = ({ selectAlbum }) => {
   const [albums, setAlbums] = useState([]);
@@ -11,9 +12,12 @@ const AlbumList = ({ selectAlbum }) => {
   }, []);
 
   return (
-    <div className="mt-12">
-      <h2 className="text-3xl font-semibold mb-8 text-center">🌟 Albums</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+    <div className="mt-6">
+      <h1 className="text-4xl font-bold tracking-wide flex items-center justify-center gap-3">
+        🌟 Albums
+        
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center mt-8">
         {albums.map((album) => (
           <div
             key={album.album_id}
@@ -28,7 +32,7 @@ const AlbumList = ({ selectAlbum }) => {
           >
             {/* İkon */}
             <div className="absolute top-4 right-4 bg-purple-700 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl shadow-lg">
-              🎶
+              <FaRecordVinyl />
             </div>
 
             {/* Albüm Adı */}
@@ -45,15 +49,15 @@ const AlbumList = ({ selectAlbum }) => {
 
             {/* Artist Adı */}
             <p className="text-center text-gray-700 text-md mt-4">
-              <strong></strong> {album.Artist?.name || "Unknown Artist"}
+              {album.Artist?.name || "Unknown Artist"}
             </p>
 
             {/* Albüm Detay Butonu */}
             <button
               onClick={() => selectAlbum(album.album_id)}
-              className="mt-6 px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-400 transition-all font-medium shadow-md hover:shadow-lg"
+              className="mt-6 px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-400 transition-all font-medium shadow-md hover:shadow-lg flex items-center gap-2"
             >
-              Go to Album
+              Go to Album <FaArrowRight />
             </button>
           </div>
         ))}

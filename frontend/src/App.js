@@ -5,6 +5,7 @@ import Navbar from "./components/menu/Navbar";
 import AlbumsPage from "./pages/AlbumsPage";
 import TracksPage from "./pages/TracksPage";
 import HomePage from "./pages/HomePage";
+import AddContent from "./pages/AddContent";
 
 const App = () => {
   const [currentSelect, setCurrentSelect] = useState("Home");
@@ -24,6 +25,7 @@ const App = () => {
         )}
         {currentSelect === "Albums" && <AlbumsPage />}
         {currentSelect === "Tracks" && <TracksPage />}
+        {currentSelect === "Add Content" && <AddContent />}
       </main>
     </div>
   );
