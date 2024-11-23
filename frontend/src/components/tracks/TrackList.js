@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const TrackList = ({ viewTrackDetails }) => {
   const [tracks, setTracks] = useState([]);
   const [filteredTracks, setFilteredTracks] = useState([]);
-  const [genres, setGenres] = useState([]); // Genre listesi
+  const [genres, setGenres] = useState([]);
   const [filters, setFilters] = useState({
     genre_id: "",
     minLength: "",
@@ -79,25 +79,23 @@ const TrackList = ({ viewTrackDetails }) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
 
   return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold text-center mb-6">Tracks</h1>
+    <div className="min-h-screen p-6 bg-gradient-to-b from-gray-900 via-black to-purple-900 text-white mt-12">
+      <h1 className="text-4xl font-bold text-center mb-8">🎵 Tracks</h1>
 
       {isLoading ? (
-        <p className="text-center text-gray-500">Trackler yükleniyor...</p>
+        <p className="text-center text-gray-500">Loading tracks...</p>
       ) : (
         <>
           {/* Filters */}
-          <div className="bg-gray-100 p-4 rounded-md shadow-md mb-6 w-9/12 mx-auto">
-            <div className="flex flex-wrap justify-center items-center gap-4">
-              <div className="flex flex-col items-center w-1/6 min-w-[120px]">
-                <label className="block text-sm font-medium text-gray-700 text-center">
-                  Genre:
-                </label>
+          <div className="bg-gray-800 bg-opacity-40 p-4 rounded-lg shadow-lg backdrop-blur-lg mb-10">
+            <div className="flex flex-wrap justify-center items-center gap-6">
+              <div className="flex flex-col items-center">
+                <label className="text-sm font-medium mb-2">Genre</label>
                 <select
                   name="genre_id"
                   value={filters.genre_id}
                   onChange={handleFilterChange}
-                  className="w-full h-10 rounded-md text-center border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:ring-purple-400"
                 >
                   <option value="">All Genres</option>
                   {genres.map((genre) => (
@@ -107,53 +105,24 @@ const TrackList = ({ viewTrackDetails }) => {
                   ))}
                 </select>
               </div>
-              {[
-                {
-                  label: "Min Length (mm:ss):",
-                  name: "minLength",
-                  type: "text",
-                  placeholder: "e.g., 3:30",
-                },
-                {
-                  label: "Max Length (mm:ss):",
-                  name: "maxLength",
-                  type: "text",
-                  placeholder: "e.g., 4:20",
-                },
-                {
-                  label: "Min Price ($):",
-                  name: "minPrice",
-                  type: "number",
-                  step: "0.01",
-                  placeholder: "e.g., 0.5",
-                },
-                {
-                  label: "Max Price ($):",
-                  name: "maxPrice",
-                  type: "number",
-                  step: "0.01",
-                  placeholder: "e.g., 1",
-                },
-              ].map(({ label, name, ...props }) => (
-                <div
-                  key={name}
-                  className="flex flex-col items-center w-1/6 min-w-[120px]"
-                >
-                  <label className="block text-sm font-medium text-gray-700 text-center">
-                    {label}
-                  </label>
+              {[{ label: "Min Length (mm:ss):", name: "minLength", type: "text" }, 
+              { label: "Max Length (mm:ss):", name: "maxLength", type: "text" },
+              { label: "Min Price ($):", name: "minPrice", type: "number" },
+              { label: "Max Price ($):", name: "maxPrice", type: "number" }].map(({ label, name, type }) => (
+                <div key={name} className="flex flex-col items-center">
+                  <label className="text-sm font-medium mb-2">{label}</label>
                   <input
-                    {...props}
+                    type={type}
                     name={name}
                     value={filters[name]}
                     onChange={handleFilterChange}
-                    className="w-full h-10 rounded-md text-center border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:ring-purple-400"
                   />
                 </div>
               ))}
               <button
                 onClick={applyFilters}
-                className="bg-indigo-600 text-white font-bold py-2 px-6 rounded-md hover:bg-indigo-700 transition"
+                className="px-6 py-2 bg-teal-700 rounded-full hover:bg-teal-600 shadow-md font-medium transition-all"
               >
                 Filter
               </button>
@@ -165,36 +134,37 @@ const TrackList = ({ viewTrackDetails }) => {
             {filteredTracks.map((track) => (
               <div
                 key={track.track_id}
-                className="flex flex-col md:flex-row items-start bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow"
+                className="bg-gray-800 bg-opacity-40 rounded-lg shadow-lg hover:shadow-xl p-6 grid grid-cols-5 items-center gap-4 transition-all"
               >
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                    {track.name}
-                  </h2>
-                  <p className="text-gray-600">
-                    <strong>Album:</strong> {track.Album?.title || "No Album"}
-                  </p>
-                  <p className="text-gray-600">
-                    <strong>Genre:</strong> {track.Genre?.name || "Unknown"}
-                  </p>
-
-                  <p className="text-gray-600">
-                    <strong>Duration:</strong>{" "}
-                    {convertToMinutes(track.milliseconds)}
-                  </p>
-                  <p className="text-gray-600">
-                    <strong>Price:</strong> $
-                    {parseFloat(track.unit_price).toFixed(2)}
-                  </p>
-
-                  {/* Detayları Gör Butonu */}
-                  <button
-                    onClick={() => viewTrackDetails(track.track_id)}
-                    className="mt-4 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
-                  >
-                    Detayları Gör
-                  </button>
+                {/* Track Icon and Name */}
+                <div className="flex items-center col-span-2 gap-4">
+                  <div className="bg-purple-700 w-12 h-12 flex items-center justify-center rounded-full text-white text-xl">
+                    🎶
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold">{track.name}</h2>
+                  </div>
                 </div>
+
+                {/* Duration */}
+                <div className="text-center text-gray-400">
+                  {convertToMinutes(track.milliseconds)}
+                </div>
+
+                {/* Price */}
+                <div className="text-right text-white font-bold">
+                  ${parseFloat(track.unit_price).toFixed(2)}
+                </div>
+
+                {/* Details Button */}
+                <button
+  onClick={() => viewTrackDetails(track.track_id)}
+  className="py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white"
+  style={{ width: "100px", marginLeft: "auto" }}
+>
+  Details
+</button>
+
               </div>
             ))}
           </div>

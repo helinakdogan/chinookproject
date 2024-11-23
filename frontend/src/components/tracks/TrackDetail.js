@@ -24,62 +24,68 @@ const TrackDetail = ({ trackId, goBack }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-gray-500 text-xl">Loading track details...</p>
+      <div className="flex justify-center items-center h-screen text-white">
+        <p className="text-xl">Loading track details...</p>
       </div>
     );
   }
 
   if (!track) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-red-500 text-xl">Failed to load track details.</p>
+      <div className="flex justify-center items-center h-screen text-white">
+        <p className="text-xl text-red-500">Failed to load track details.</p>
       </div>
     );
   }
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Başlık ve Geri Dön Butonu */}
-      <div className="mb-8 flex justify-between items-center">
-        <h1 className="text-4xl font-bold text-gray-800">{track.name}</h1>
+    <div className="min-h-screen p-6 text-white">
+      {/* Geri Dön Butonu */}
+      <div className="flex justify-start mb-6">
         <button
           onClick={goBack}
-          className="px-6 py-2 text-sm font-medium text-white bg-gray-500 rounded-md hover:bg-gray-600 transition focus:outline-none"
+          className="px-6 py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white font-medium transition-all"
         >
-          Geri Dön
+          Go Back to Tracks
         </button>
       </div>
 
-      {/* Track Detayları */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-        <h2 className="text-2xl font-bold text-gray-700 mb-4">Track Details</h2>
-        <div className="space-y-4">
-          <p className="text-lg text-gray-600">
+      {/* Şarkı Başlığı */}
+      <div className="mb-12 flex flex-col items-center">
+        <h1 className="text-4xl font-bold tracking-wide text-center">
+          {track.name}
+        </h1>
+      </div>
+
+      {/* Şarkı Detayları */}
+      <div className="bg-gray-800 bg-opacity-40 rounded-lg shadow-lg p-6 mb-12 backdrop-blur-lg">
+        <div className="space-y-4 text-lg">
+          <p>
             <strong>Album:</strong>{" "}
             {track.Album?.title ? `${track.Album.title}` : "No Album"}
           </p>
-          <p className="text-lg text-gray-600">
-            <strong>Genre:</strong>{" "}
-            {track.Genre?.name || "Unknown Genre"}
+          <p>
+            <strong>Genre:</strong> {track.Genre?.name || "Unknown Genre"}
           </p>
-          <p className="text-lg text-gray-600">
+          <p>
             <strong>Media Type:</strong>{" "}
             {track.MediaType?.name || "Unknown Media Type"}
           </p>
-          <p className="text-lg text-gray-600">
+          <p>
             <strong>Composer:</strong> {track.composer || "Unknown"}
           </p>
-          <p className="text-lg text-gray-600">
+          <p>
             <strong>Duration:</strong>{" "}
             {Math.floor(track.milliseconds / 60000)} mins{" "}
             {Math.floor((track.milliseconds % 60000) / 1000)} secs
           </p>
-          <p className="text-lg text-gray-600">
+          <p>
             <strong>Size:</strong>{" "}
-            {track.bytes ? `${(track.bytes / 1024 / 1024).toFixed(2)} MB` : "Unknown"}
+            {track.bytes
+              ? `${(track.bytes / 1024 / 1024).toFixed(2)} MB`
+              : "Unknown"}
           </p>
-          <p className="text-lg text-gray-600">
+          <p>
             <strong>Price:</strong> ${parseFloat(track.unit_price).toFixed(2)}
           </p>
         </div>

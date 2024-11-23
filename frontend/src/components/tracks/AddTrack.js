@@ -17,7 +17,6 @@ const AddTrack = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    // Media types ve genres'ı API'den çek
     fetch("http://localhost:5000/media-types")
       .then((response) => response.json())
       .then((data) => setMediaTypes(data))
@@ -36,7 +35,7 @@ const AddTrack = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Form doğrulama
+    // Validation
     if (
       !formData.name.trim() ||
       !formData.albumName.trim() ||
@@ -48,7 +47,6 @@ const AddTrack = () => {
       return;
     }
 
-    // Süreyi milisaniyeye çevir
     const [minutes, seconds] = formData.duration.split(":").map(Number);
     if (
       isNaN(minutes) ||
@@ -60,16 +58,15 @@ const AddTrack = () => {
       setMessage("Invalid duration format. Use MM:SS.");
       return;
     }
+
     const milliseconds = (minutes * 60 + seconds) * 1000;
 
-    // Unit price doğrulama
     const unitPrice = parseFloat(formData.unitPrice);
     if (isNaN(unitPrice) || unitPrice <= 0) {
       setMessage("Please provide a valid unit price greater than 0.");
       return;
     }
 
-    // Track ekleme isteği
     fetch("http://localhost:5000/tracks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -113,39 +110,64 @@ const AddTrack = () => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6">
-      <h2 className="text-2xl font-bold mb-4">Add New Track</h2>
-      {message && <p className="text-center text-red-500 mb-4">{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Track Name</label>
+    <div
+      className="bg-violet-900 bg-opacity-15 shadow-lg rounded-xl p-8 max-w-lg mx-auto text-white mt-6"
+      style={{
+        backdropFilter: "blur(8px)",
+        boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)",
+      }}
+    >
+      <h2 className="text-3xl font-bold mb-6 text-center">Add New Track</h2>
+      {message && (
+        <p
+          className={`text-center mb-6 ${
+            message.includes("Error") ? "text-red-400" : "text-green-400"
+          }`}
+        >
+          {message}
+        </p>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium mb-2">
+            Track Name
+          </label>
           <input
             type="text"
             name="name"
+            id="name"
             value={formData.name}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
+            placeholder="Enter track name"
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Album Name</label>
+        <div>
+          <label htmlFor="albumName" className="block text-sm font-medium mb-2">
+            Album Name
+          </label>
           <input
             type="text"
             name="albumName"
+            id="albumName"
             value={formData.albumName}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
+            placeholder="Enter album name"
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Media Type</label>
+        <div>
+          <label htmlFor="mediaTypeId" className="block text-sm font-medium mb-2">
+            Media Type
+          </label>
           <select
             name="mediaTypeId"
+            id="mediaTypeId"
             value={formData.mediaTypeId}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
             required
           >
             <option value="">Select Media Type</option>
@@ -156,13 +178,16 @@ const AddTrack = () => {
             ))}
           </select>
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Genre</label>
+        <div>
+          <label htmlFor="genre" className="block text-sm font-medium mb-2">
+            Genre
+          </label>
           <select
             name="genre"
+            id="genre"
             value={formData.genre}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
           >
             <option value="">Select Genre</option>
             {genres.map((genre) => (
@@ -172,53 +197,68 @@ const AddTrack = () => {
             ))}
           </select>
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Composer</label>
+        <div>
+          <label htmlFor="composer" className="block text-sm font-medium mb-2">
+            Composer
+          </label>
           <input
             type="text"
             name="composer"
+            id="composer"
             value={formData.composer}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
+            placeholder="Enter composer"
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Duration (MM:SS)</label>
+        <div>
+          <label htmlFor="duration" className="block text-sm font-medium mb-2">
+            Duration (MM:SS)
+          </label>
           <input
             type="text"
             name="duration"
+            id="duration"
             value={formData.duration}
             onChange={handleChange}
-            placeholder="e.g., 3:30"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
+            placeholder="Enter duration (MM:SS)"
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Bytes</label>
+        <div>
+          <label htmlFor="bytes" className="block text-sm font-medium mb-2">
+            Bytes
+          </label>
           <input
             type="number"
             name="bytes"
+            id="bytes"
             value={formData.bytes}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
+            placeholder="Enter file size in bytes"
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Unit Price</label>
+        <div>
+          <label htmlFor="unitPrice" className="block text-sm font-medium mb-2">
+            Unit Price
+          </label>
           <input
             type="number"
             step="0.01"
             name="unitPrice"
+            id="unitPrice"
             value={formData.unitPrice}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="w-full rounded-lg bg-violet-700 bg-opacity-20 text-white p-3 focus:border-violet-500 focus:ring-2 focus:ring-violet-400 placeholder-gray-300"
+            placeholder="Enter unit price"
             required
           />
         </div>
         <button
           type="submit"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none"
+          className="w-full bg-purple-700 text-white py-3 rounded-lg hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 font-medium"
         >
           Add Track
         </button>
