@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaMusic, FaRecordVinyl} from "react-icons/fa";
+import { FaMusic, FaRecordVinyl } from "react-icons/fa";
 
 const HomePage = ({ setCurrentSelect }) => {
   const [albums, setAlbums] = useState([]);
@@ -7,14 +7,21 @@ const HomePage = ({ setCurrentSelect }) => {
 
   // Albümleri ve şarkıları yükleme
   useEffect(() => {
-    fetch("http://localhost:5000/albums")
+    // Albümleri çek
+    fetch("http://localhost:5000/albums?limit=4&offset=0")
       .then((response) => response.json())
-      .then((data) => setAlbums(data.slice(0, 4))) // İlk 4 albümü göster
+      .then((data) => {
+        setAlbums(data.tracks || data.slice(0, 4)); // İlk 4 albümü al
+      })
       .catch((error) => console.error("Error fetching albums:", error));
 
-    fetch("http://localhost:5000/tracks")
+    // Şarkıları çek
+    fetch("http://localhost:5000/tracks?limit=6&offset=0")
       .then((response) => response.json())
-      .then((data) => setTracks(data.slice(0, 6))) // İlk 6 şarkıyı göster
+      .then((data) => {
+        const { tracks: allTracks } = data || {};
+        setTracks(allTracks || []); // İlk 6 şarkıyı listele
+      })
       .catch((error) => console.error("Error fetching tracks:", error));
   }, []);
 
@@ -46,12 +53,9 @@ const HomePage = ({ setCurrentSelect }) => {
                 boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
               }}
             >
-              {/* İkon */}
               <div className="absolute top-4 right-4 bg-purple-700 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl shadow-lg">
                 <FaRecordVinyl />
               </div>
-
-              {/* Albüm Adı */}
               <h3
                 className="text-xl font-bold text-center text-black mt-4 break-words"
                 style={{
@@ -62,13 +66,11 @@ const HomePage = ({ setCurrentSelect }) => {
               >
                 {album.title}
               </h3>
-
-              {/* Artist Adı */}
               <p
                 className="text-center text-gray-700 text-sm mt-4"
                 title={album.Artist?.name || "Unknown Artist"}
               >
-                 {album.Artist?.name || "Unknown Artist"}
+                {album.Artist?.name || "Unknown Artist"}
               </p>
             </div>
           ))}
@@ -85,9 +87,7 @@ const HomePage = ({ setCurrentSelect }) => {
 
       {/* Şarkılar */}
       <div>
-        <h2 className="text-3xl font-semibold mb-6">
-        🌟 Featured Tracks
-        </h2>
+        <h2 className="text-3xl font-semibold mb-6">🌟 Featured Tracks</h2>
         <div className="space-y-4">
           {tracks.map((track) => (
             <div

@@ -3,24 +3,30 @@ const { Album, Artist, Track } = require('../models'); // Modelleri import et
 const router = express.Router();
 
 // Tüm albümleri listeleme
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit, 10) || null;
+    const limit = parseInt(req.query.limit, 10) || 50; // Default limit 50
+    const offset = parseInt(req.query.offset, 10) || 0; // Default offset 0
+
     const albums = await Album.findAll({
       include: {
         model: Artist,
-        attributes: ['name'], 
+        attributes: ["name"], // Sadece artist adı
       },
-      attributes: ['album_id', 'title', 'artist_id'], 
-      order: [['title', 'ASC']],
-      limit,
+      attributes: ["album_id", "title", "artist_id"], // Sadece gerekli alanları al
+      order: [["title", "ASC"]], // Alfabetik sıralama
+      limit: limit, // Limit ekliyoruz
+      offset: offset, // Offset ekliyoruz
     });
+
     res.json(albums); // Albümleri JSON olarak döndür
   } catch (error) {
-    console.error('Error fetching albums:', error.message);
-    res.status(500).json({ error: 'Error fetching albums' });
+    console.error("Error fetching albums:", error.message);
+    res.status(500).json({ error: "Error fetching albums" });
   }
 });
+
+
 
 // Belirli bir albümü detaylarıyla listeleme
 router.get('/:albumId', async (req, res) => {
