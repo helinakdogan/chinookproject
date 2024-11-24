@@ -15,7 +15,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["./routes/*.js"], // Route dosyalarını otomatik dökümante eder
+  apis: ["./routes/*.js"], 
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

@@ -213,7 +213,7 @@ const TrackList = ({ viewTrackDetails }) => {
                   className="py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white flex items-center justify-center"
                   style={{ width: "100px", marginLeft: "auto" }}
                 >
-                  Details <FaArrowRight />
+                  Details {" "} <FaArrowRight />
                 </button>
               </div>
             ))}
