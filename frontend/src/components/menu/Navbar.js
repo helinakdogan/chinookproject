@@ -53,9 +53,7 @@ const Navbar = ({ currentSelect, setCurrentSelect }) => {
           )}
         </button>
         <div
-          className={`${
-            isOpen ? "block" : "hidden"
-          } w-full md:flex md:w-auto`}
+          className={`${isOpen ? "block" : "hidden"} w-full md:flex md:w-auto`}
           id="mobile-menu"
         >
           <ul className="flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0">

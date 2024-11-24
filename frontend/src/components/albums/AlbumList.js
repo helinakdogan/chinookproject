@@ -19,7 +19,7 @@ const AlbumList = ({ selectAlbum }) => {
       const data = await response.json();
 
       if (data.length > 0) {
-        // Yeni albümleri mevcut albümlere ekle
+      
         setAlbums((prevAlbums) => {
           const newAlbums = data.filter(
             (album) => !prevAlbums.some((a) => a.album_id === album.album_id)
@@ -32,7 +32,7 @@ const AlbumList = ({ selectAlbum }) => {
           setHasMore(false);
         }
       } else {
-        setHasMore(false); // Hiç albüm gelmezse son sayfa
+        setHasMore(false); 
       }
     } catch (error) {
       console.error("Error fetching albums:", error);
@@ -47,7 +47,7 @@ const AlbumList = ({ selectAlbum }) => {
 
   const loadMoreAlbums = () => {
     if (hasMore) {
-      setPage((prevPage) => prevPage + 1); // Sayfayı artır
+      setPage((prevPage) => prevPage + 1);
     }
   };
 

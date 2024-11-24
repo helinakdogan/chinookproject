@@ -16,7 +16,7 @@ const AddContent = () => {
         </p>
       </div>
 
-      {/* Content Section */}
+      {/* Content section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Add Album */}
         <div className="bg-gray-800 bg-opacity-40 rounded-lg shadow-lg p-6">

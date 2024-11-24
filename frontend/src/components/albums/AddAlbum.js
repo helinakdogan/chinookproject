@@ -51,7 +51,6 @@ const AddAlbum = () => {
         boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)", // Derinlik eklendi
       }}
     >
-     
       {message && (
         <p
           className={`text-center mb-6 ${

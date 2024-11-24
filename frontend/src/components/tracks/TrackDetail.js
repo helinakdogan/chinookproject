@@ -76,9 +76,8 @@ const TrackDetail = ({ trackId, goBack }) => {
             <strong>Composer:</strong> {track.composer || "Unknown"}
           </p>
           <p>
-            <strong>Duration:</strong>{" "}
-            {Math.floor(track.milliseconds / 60000)} mins{" "}
-            {Math.floor((track.milliseconds % 60000) / 1000)} secs
+            <strong>Duration:</strong> {Math.floor(track.milliseconds / 60000)}{" "}
+            mins {Math.floor((track.milliseconds % 60000) / 1000)} secs
           </p>
           <p>
             <strong>Size:</strong>{" "}

@@ -27,19 +27,22 @@ const AlbumDetail = ({ albumId, goBack }) => {
           onClick={goBack}
           className="px-6 py-2 bg-green-600 rounded-full hover:bg-green-500 shadow-md text-white font-medium transition-all"
         >
-           <FaArrowLeft /> 
+          <FaArrowLeft />
         </button>
       </div>
 
       {/* Albüm Başlığı */}
       <div className="mb-12 flex flex-col items-center">
-        <h1 className="text-4xl font-bold tracking-wide  text-center">{albumDetails.title}</h1>
+        <h1 className="text-4xl font-bold tracking-wide  text-center">
+          {albumDetails.title}
+        </h1>
       </div>
 
       {/* Albüm Detayları */}
       <div className="bg-gray-800 bg-opacity-40 rounded-lg shadow-lg p-6 mb-12 backdrop-blur-lg">
         <p className="text-lg text-center">
-          <strong>Artist:</strong> {albumDetails.Artist?.name || "Unknown Artist"}
+          <strong>Artist:</strong>{" "}
+          {albumDetails.Artist?.name || "Unknown Artist"}
         </p>
       </div>
 
@@ -52,10 +55,11 @@ const AlbumDetail = ({ albumId, goBack }) => {
               <li key={track.track_id} className="py-4">
                 <div className="grid grid-cols-3 items-center gap-4">
                   {/* Track Adı */}
-                  <span className="text-lg font-bold text-white">{track.name}</span>
+                  <span className="text-lg font-bold text-white">
+                    {track.name}
+                  </span>
                   {/* Süre */}
                   <span className="text-sm text-gray-400 text-center">
-                  
                     {Math.floor(track.milliseconds / 60000)} mins{" "}
                     {Math.floor((track.milliseconds % 60000) / 1000)} secs
                   </span>

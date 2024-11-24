@@ -117,7 +117,6 @@ const AddTrack = () => {
         boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)",
       }}
     >
-      
       {message && (
         <p
           className={`text-center mb-6 ${
@@ -159,7 +158,10 @@ const AddTrack = () => {
           />
         </div>
         <div>
-          <label htmlFor="mediaTypeId" className="block text-sm font-medium mb-2">
+          <label
+            htmlFor="mediaTypeId"
+            className="block text-sm font-medium mb-2"
+          >
             Media Type
           </label>
           <select

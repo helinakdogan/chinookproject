@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FaMusic, FaRecordVinyl } from "react-icons/fa";
 
 const HomePage = ({ setCurrentSelect }) => {
+  // Albümler ve şarkılar için state'leri tanımla
   const [albums, setAlbums] = useState([]);
   const [tracks, setTracks] = useState([]);
 
-  // Albümleri ve şarkıları yükleme
+  // Albüm ve şarkı verilerini yüklemek için useEffect
   useEffect(() => {
-    // Albümleri çek
+    // Albümleri API'den çek
     fetch("http://localhost:5000/albums?limit=4&offset=0")
       .then((response) => response.json())
       .then((data) => {
@@ -15,17 +16,18 @@ const HomePage = ({ setCurrentSelect }) => {
       })
       .catch((error) => console.error("Error fetching albums:", error));
 
-    // Şarkıları çek
+    // Şarkıları API'den çek
     fetch("http://localhost:5000/tracks?limit=6&offset=0")
       .then((response) => response.json())
       .then((data) => {
-        setTracks(data); // Tüm veriyi doğrudan state'e aktar
+        setTracks(data); // Tüm şarkıları state'e ata
       })
       .catch((error) => console.error("Error fetching tracks:", error));
   }, []);
 
   return (
     <div className="min-h-screen p-6 bg-gradient-to-b from-gray-900 via-black to-purple-900 text-white">
+      {/* Başlık */}
       <h1 className="text-5xl font-bold text-center mb-8 tracking-wide">
         <FaMusic className="inline-block text-pink-600 mr-2" /> Welcome to Music
         Library <FaMusic className="inline-block text-pink-600 ml-2" />
@@ -40,6 +42,7 @@ const HomePage = ({ setCurrentSelect }) => {
           🌟 Featured Albums
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+          {/* Albümleri listele */}
           {albums.map((album) => (
             <div
               key={album.album_id}
@@ -76,6 +79,7 @@ const HomePage = ({ setCurrentSelect }) => {
         </div>
       </div>
       <div className="text-center mt-8 mb-20">
+        {/* Tüm albümleri görme butonu */}
         <button
           onClick={() => setCurrentSelect("Albums")}
           className="px-6 py-3 bg-green-600 rounded-full hover:bg-green-500 text-lg font-medium shadow-md hover:shadow-lg transition-all"
@@ -84,10 +88,11 @@ const HomePage = ({ setCurrentSelect }) => {
         </button>
       </div>
 
-      {/* Şarkılar */}
+      {/* Tracks */}
       <div>
         <h2 className="text-3xl font-semibold mb-6">🌟 Featured Tracks</h2>
         <div className="space-y-4">
+          {/* List tracks */}
           {tracks.map((track) => (
             <div
               key={track.track_id}
@@ -111,6 +116,7 @@ const HomePage = ({ setCurrentSelect }) => {
           ))}
         </div>
         <div className="text-center mt-8">
+          {/* Load all tracks button */}
           <button
             onClick={() => setCurrentSelect("Tracks")}
             className="px-6 py-3 bg-green-600 rounded-full hover:bg-green-500 text-lg font-medium shadow-md hover:shadow-lg transition-all"

@@ -9,13 +9,13 @@ const AlbumsPage = () => {
   return (
     <div>
       {selectedAlbumId ? (
-        <AlbumDetail albumId={selectedAlbumId} goBack={() => setSelectedAlbumId(null)} />
+        <AlbumDetail
+          albumId={selectedAlbumId}
+          goBack={() => setSelectedAlbumId(null)}
+        />
       ) : (
         <>
-        
           <AlbumList selectAlbum={(id) => setSelectedAlbumId(id)} />
-         
-          
         </>
       )}
     </div>
