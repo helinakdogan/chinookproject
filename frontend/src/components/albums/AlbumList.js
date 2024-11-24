@@ -104,7 +104,7 @@ const AlbumList = ({ selectAlbum }) => {
           </button>
         </div>
       )}
-      {isLoading && <p className="text-center mt-4">Loading...</p>}
+      {isLoading && <p className="text-center mt-4">Loading albums...</p>}
     </div>
   );
 };

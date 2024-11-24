@@ -19,8 +19,7 @@ const HomePage = ({ setCurrentSelect }) => {
     fetch("http://localhost:5000/tracks?limit=6&offset=0")
       .then((response) => response.json())
       .then((data) => {
-        const { tracks: allTracks } = data || {};
-        setTracks(allTracks || []); // İlk 6 şarkıyı listele
+        setTracks(data); // Tüm veriyi doğrudan state'e aktar
       })
       .catch((error) => console.error("Error fetching tracks:", error));
   }, []);
@@ -28,8 +27,8 @@ const HomePage = ({ setCurrentSelect }) => {
   return (
     <div className="min-h-screen p-6 bg-gradient-to-b from-gray-900 via-black to-purple-900 text-white">
       <h1 className="text-5xl font-bold text-center mb-8 tracking-wide">
-        <FaMusic className="inline-block text-pink-600 mr-2" /> Welcome to Music Library{" "}
-        <FaMusic className="inline-block text-pink-600 ml-2" />
+        <FaMusic className="inline-block text-pink-600 mr-2" /> Welcome to Music
+        Library <FaMusic className="inline-block text-pink-600 ml-2" />
       </h1>
       <p className="text-lg text-center mb-20">
         Discover amazing tracks and albums, or add new ones to your collection!

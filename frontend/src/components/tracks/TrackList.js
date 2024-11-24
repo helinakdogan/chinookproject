@@ -23,17 +23,18 @@ const TrackList = ({ viewTrackDetails }) => {
   useEffect(() => {
     // Tüm trackleri getir
     fetch("http://localhost:5000/tracks?limit=99999&offset=0")
-      .then((response) => response.json())
-      .then((data) => {
-        const { tracks: allTracks } = data || {};
-        setTracks(allTracks || []); // Gelen tüm veriyi kaydet
-        setFilteredTracks(allTracks || []); // Filtrelenmiş listeye başlangıçta tümünü ata
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching tracks:", error);
-        setIsLoading(false);
-      });
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("Tracks data:", data); // Gelen veri kontrolü
+    setTracks(data || []); // Gelen tüm veriyi kaydet
+    setFilteredTracks(data || []); // Filtrelenmiş listeye başlangıçta tümünü ata
+    setIsLoading(false);
+  })
+  .catch((error) => {
+    console.error("Error fetching tracks:", error);
+    setIsLoading(false);
+  });
+
 
     // Genre'leri getir
     fetch("http://localhost:5000/genres")
